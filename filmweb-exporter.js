@@ -22,10 +22,10 @@ function parseDom(dom) {
 
             // Get user's rating   
             let ratingJsonNodeInner = JSON.parse(ratingJsonNode.innerText);
-            let user_rate = `${ratingJsonNodeInner["r"]}`;
+            let user_vote = `${ratingJsonNodeInner["r"]}`;
 
-            if (user_rate === "0") {
-                user_rate = "";
+            if (user_vote === "0") {
+                user_vote = "";
             }
 
             // Get user's rating date (rating date is sometimes absent -> user timestamp)
@@ -48,12 +48,14 @@ function parseDom(dom) {
 
             // --- Additional fields ---
             // Get user's rating date - as timestamp
-            let timestamp  = `${ratingJsonNodeInner["t"]}`
+            let timestamp  = `${ratingJsonNodeInner["t"]}`;
             // Get movie's id
-            let movie_id  = `${ratingJsonNodeInner["eId"]}`
+            let movie_id  = `${ratingJsonNodeInner["eId"]}`;
             // Get filmweb's community rating
             let full_rate = dom.evaluate('.//span[@class="rateBox__rate" and @itemprop="ratingValue"]',
                 ratingBoxNode, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.textContent;
+            full_rate = full_rate.replace(",", ".")
+            
             // Get movie's rating count
             let rate_count = dom.evaluate('.//span[contains(@class,"rateBox__votes--count")]',
                 ratingBoxNode, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.getAttribute("content");
@@ -64,7 +66,7 @@ function parseDom(dom) {
                 year: year,
                 full_rate: full_rate,
                 rate_count: rate_count,
-                user_rate: user_rate,
+                user_vote: user_vote,
                 timestamp: timestamp,
                 rate_date: rate_date
             });
