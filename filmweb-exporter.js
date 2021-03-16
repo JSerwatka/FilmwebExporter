@@ -57,7 +57,7 @@ function parseDom(dom) {
             full_rate = full_rate.replace(",", ".")
             
             // Get movie's rating count
-            let rate_count = dom.evaluate('.//span[contains(@class,"rateBox__votes--count")]',
+            let vote_count = dom.evaluate('.//span[contains(@class,"rateBox__votes--count")]',
                 ratingBoxNode, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.getAttribute("content");
 
             arr.push({
@@ -65,7 +65,7 @@ function parseDom(dom) {
                 movie_id: movie_id,
                 year: year,
                 full_rate: full_rate,
-                rate_count: rate_count,
+                vote_count: vote_count,
                 user_vote: user_vote,
                 timestamp: timestamp,
                 rate_date: rate_date
