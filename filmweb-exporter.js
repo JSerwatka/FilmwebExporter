@@ -28,23 +28,23 @@ function parseDom(dom) {
                 user_vote = "";
             }
 
-            // Get user's rating date (rating date is sometimes absent -> user timestamp)
-            let rate_year = "";
-            let rate_month = "";
-            let rate_day = "";
+            // Get user's vote date (rating date is sometimes absent -> user timestamp)
+            let vote_year = "";
+            let vote_month = "";
+            let vote_day = "";
 
             if ("d" in ratingJsonNodeInner) {
-                rate_year = ratingJsonNodeInner["d"]["y"].toString();
-                rate_month = ratingJsonNodeInner["d"]["m"].toString().padStart(2, "0");
-                rate_day = ratingJsonNodeInner["d"]["d"].toString().padStart(2, "0");
+                vote_year = ratingJsonNodeInner["d"]["y"].toString();
+                vote_month = ratingJsonNodeInner["d"]["m"].toString().padStart(2, "0");
+                vote_day = ratingJsonNodeInner["d"]["d"].toString().padStart(2, "0");
             }
             else {
                 date = new Date(ratingJsonNodeInner["t"] * 1000);
-                rate_year = date.getFullYear()
-                rate_month = date.getMonth().toString().padStart(2, "0");
-                rate_day = date.getDate().toString().padStart(2, "0");
+                vote_year = date.getFullYear()
+                vote_month = date.getMonth().toString().padStart(2, "0");
+                vote_day = date.getDate().toString().padStart(2, "0");
             }
-            let rate_date = `${rate_year}-${rate_month}-${rate_day}`;
+            let vote_date = `${vote_year}-${vote_month}-${vote_day}`;
 
             // --- Additional fields ---
             // Get user's rating date - as timestamp
@@ -68,7 +68,7 @@ function parseDom(dom) {
                 vote_count: vote_count,
                 user_vote: user_vote,
                 timestamp: timestamp,
-                rate_date: rate_date
+                iso_date: vote_date
             });
 
             ratingBoxNode = iterator_card.iterateNext();
