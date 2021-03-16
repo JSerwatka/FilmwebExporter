@@ -4,7 +4,7 @@
 Skrypty eksportują oceny filmów/seriali i "Chcę zobaczyć" z Filmweb'a do formatu csv.
 Pliku csv ma następujące kolumny:
 * _title_ - oryginalny tytuł programu, a jak nie znajdzie, to polski;
-* _movie_id_ - unikalne id programu (w bazie Filmeb'a);
+* _movie_id_ - unikalne id programu (w bazie Filmweb'a);
 * _year_ - rok produkcji programu;
 * _full_rate_ - ocena społeczności Filmweb'u;
 * _vote_count_ - ilość ocen programu;
