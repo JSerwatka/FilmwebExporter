@@ -93,7 +93,7 @@ async function getMovieData(movieUrl) {
   )?.textContent;
   year = year.split(" - ")[0]; // handle serial dates
 
-  const movieId = htmlDocument.querySelector("a[data-filmid]")?.dataset?.filmid;
+  const movieId = htmlDocument.querySelector("[data-film-id]")?.dataset?.filmId;
 
   const fullRating =
     htmlDocument
