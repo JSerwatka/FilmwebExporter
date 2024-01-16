@@ -1,7 +1,7 @@
 function formatDate(dateNumber) {
     const dateStr = dateNumber?.toString();
     if (!dateStr) {
-        return `-`
+        return ""
     }
 
     const year = dateStr.substring(0, 4);
@@ -9,6 +9,18 @@ function formatDate(dateNumber) {
     const day = dateStr.substring(6, 8);
 
     return `${year}-${month}-${day}`;
+}
+
+function formatTitle(title) {
+    if (!title) {
+        return ""
+    }
+
+    if (title.includes(",")) {
+        return `"${title}"`
+    }
+
+    return title
 }
 
 async function fetchApi(endpoint) {
@@ -21,10 +33,7 @@ async function fetchApi(endpoint) {
     })
         .then((response) => {
             if (!response.ok) {
-                throw Error(`Błąd skryptu podczas fetchowania`, {
-                    endpoint,
-                    response: JSON.stringify(response)
-                })
+                throw Error(`Błąd skryptu podczas fetchowania, endpoint: ${endpoint}, reponse: ${JSON.stringify(response)}`)
             }
             return response.json()
         })
@@ -43,14 +52,14 @@ async function getAllRates() {
 
         // get title, year
         const descriptionData = await fetchApi(`title/${id}/info`);
-        const title = descriptionData["title"] ? descriptionData["title"] : descriptionData["originalTitle"]
 
         // get rating, voteCount
         const ratingData = await fetchApi(`film/${id}/rating`)
 
         allData.push({
             movieId: id,
-            title: title.includes(",") ? `"${title}"` : title,
+            polishTitle: formatTitle(descriptionData["title"]),
+            originalTitle: formatTitle(descriptionData["originalTitle"]),
             year: descriptionData.year,
             fullRating: ratingData.rate,
             voteCount: ratingData.count,

@@ -1,7 +1,7 @@
 function formatDate(dateNumber) {
     const dateStr = dateNumber?.toString();
     if (!dateStr) {
-        return `-`
+        return ""
     }
 
     const year = dateStr.substring(0, 4);
@@ -9,6 +9,18 @@ function formatDate(dateNumber) {
     const day = dateStr.substring(6, 8);
 
     return `${year}-${month}-${day}`;
+}
+
+function formatTitle(title) {
+    if (!title) {
+        return ""
+    }
+
+    if (title.includes(",")) {
+        return `"${title}"`
+    }
+
+    return title
 }
 
 async function fetchApi(endpoint) {
@@ -27,18 +39,6 @@ async function fetchApi(endpoint) {
         })
 
     return dataJSON;
-}
-
-function formatTitle(title) {
-    if (!title) {
-        return "-"
-    }
-
-    if (title.includes(",")) {
-        return `"${title}"`
-    }
-    
-    return title
 }
 
 async function getAllRates() {

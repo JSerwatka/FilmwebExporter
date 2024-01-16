@@ -1,7 +1,7 @@
 function formatDate(dateNumber) {
     const dateStr = dateNumber?.toString();
     if (!dateStr) {
-        return `-`
+        return ""
     }
 
     const year = dateStr.substring(0, 4);
@@ -22,7 +22,6 @@ async function fetchApi(endpoint) {
         .then((response) => {
             if (!response.ok) {
                 throw Error(`Błąd skryptu podczas fetchowania, endpoint: ${endpoint}, reponse: ${JSON.stringify(response)}`)
-
             }
             return response.json()
         })
