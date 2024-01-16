@@ -90,7 +90,7 @@ async function getAllRates() {
             fullRating: ratingData.rate,
             voteCount: ratingData.count,
             voteDate: formatDate(vote.viewDate),
-            userRating: vote.rate > 0 ? vote.rate : "-",
+            userRating: vote.rate > 0 ? vote.rate : "",
             favorite: vote["favorite"] ? "tak" : "nie"
         })
 
