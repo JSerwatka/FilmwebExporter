@@ -2,7 +2,7 @@
 
 ## O projekcie
 
-Skrypty eksportują oceny filmów/seriali i "Chcę zobaczyć" z Filmweb do formatu csv.
+Skrypty eksportują oceny filmów/seriali/gier i "Chcę zobaczyć" z Filmweb do formatu csv.
 Plik csv może mieć następujące kolumny:
 
 - _movieId_/_serialId_/_gameId_ - unikalne id programu (w bazie Filmweb);
@@ -16,17 +16,6 @@ Plik csv może mieć następujące kolumny:
 - _favorite_ - czy był dodanych do ulubionych
 
 ## Jak używać
-
-### Pobranie obejrzanych filmów
-
-1. Zaloguj się do Filmweb.
-2. Przejdź do `https://www.filmweb.pl/user/<username>#/votes/film`.
-3. Otwórz konsolę (_ctrl+shift+i_ -> _Console_).
-4. Wklej skrypt z pliku [watched.js](https://github.com/JSerwatka/FilmwebExporter/blob/master/watched.js)
-5. Zostaw kartę otwartą i nie przełączaj na żadną inną!
-
-### Krok po kroku
-
 1. Zaloguj się do Filmweb'a.
 2. Przejdź do `https://www.filmweb.pl/user/<username>`.
 3. Otwórz konsolę
