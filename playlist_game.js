@@ -16,12 +16,13 @@ async function fetchApi(endpoint) {
         method: "GET",
         headers: {
             Cookie: document.cookie,
-            'x-locale': 'pl',
+            'X-Locale': 'pl',
         }
     })
         .then((response) => {
             if (!response.ok) {
                 throw Error(`Błąd skryptu podczas fetchowania, endpoint: ${endpoint}, reponse: ${JSON.stringify(response)}`)
+
             }
             return response.json()
         })
@@ -31,41 +32,28 @@ async function fetchApi(endpoint) {
 
 function formatTitle(title) {
     if (!title) {
-        return "-"
+        return ""
     }
 
     if (title.includes(",")) {
         return `"${title}"`
     }
-    
+
     return title
 }
 
 async function getAllRates() {
-    let nextPage = 1
-    const allVotes = []
     const allData = [];
 
-    while (true) {
-        // get rating, id, viewDate
-        const dataJSON = await fetchApi(`logged/vote/title/videogame?page=${nextPage}`)
-        if (dataJSON.length == 0) {
-            break
-        }
+    const dataJSON = await fetchApi(`logged/want2see?entityName=videogame`)
+    const allSavedIds = dataJSON.map((entry) => entry[0])
 
-        allVotes.push(...dataJSON)
-        nextPage += 1;
-    }
+    for (let i = 0; i < allSavedIds.length; i++) {
+        const id = allSavedIds[i]
 
-    for (let i = 0; i < allVotes.length; i++) {
-        const vote = allVotes[i]
-
-        const id = vote["entity"];
-        if (!id) {
-            throw Error(`Gra nie znaleziona: ${JSON.stringify(vote)}`)
-        }
         // get title, year
         const descriptionData = await fetchApi(`title/${id}/info`);
+        const title = descriptionData["title"] ? descriptionData["title"] : descriptionData["originalTitle"]
 
         // get rating, voteCount
         const ratingData = await fetchApi(`film/${id}/rating`)
@@ -77,9 +65,6 @@ async function getAllRates() {
             year: descriptionData.year,
             fullRating: ratingData.rate,
             voteCount: ratingData.count,
-            voteDate: formatDate(vote.viewDate),
-            userRating: vote.rate > 0 ? vote.rate : "-",
-            favorite: vote["favorite"] ? "tak" : "nie"
         })
 
         console.log("pobrano " + (i + 1))
@@ -121,7 +106,7 @@ async function main() {
     console.log("rozpoczynam ściąganie pliku csv");
     const csvRates = arrayToCsv(allRates);
 
-    download(`Filmweb_played_games.csv`, csvRates);
+    download(`Filmweb_playlist_games.csv`, csvRates);
 }
 
 main();
