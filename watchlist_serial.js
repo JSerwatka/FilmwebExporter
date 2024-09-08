@@ -46,7 +46,7 @@ async function getAllRates() {
 
     const serialJSON = await fetchApi(`logged/want2see?entityName=serial`);
     const tvshowJSON = await fetchApi(`logged/want2see?entityName=tvshow`);
-    const allSavedIds = [...serialJSON, ...tvshowJSON].map((entry) => entry[0]);
+    const allSavedIds = [...serialJSON, ...tvshowJSON].filter((entry) => entry[1] > 0).map((entry) => entry[0]);
 
     for (let i = 0; i < allSavedIds.length; i++) {
         const id = allSavedIds[i];

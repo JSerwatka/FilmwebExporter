@@ -45,7 +45,7 @@ async function getAllRates() {
     const allData = [];
 
     const dataJSON = await fetchApi(`logged/want2see?entityName=videogame`)
-    const allSavedIds = dataJSON.map((entry) => entry[0])
+    const allSavedIds = dataJSON.filter((entry) => entry[1] > 0).map((entry) => entry[0])
 
     for (let i = 0; i < allSavedIds.length; i++) {
         const id = allSavedIds[i]
